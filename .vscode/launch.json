@@ -1,0 +1,46 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug:Test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/robot/build/bin/Test",
+            "args": ["-t"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/robot",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Debug:Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/robot/build/bin/Launcher",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/robot",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
