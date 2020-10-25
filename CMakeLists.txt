@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(Robot)
+project(Assassin)
 
 #Make sure no in-source build -----------------------------------------------------------------------------#
 if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
@@ -10,7 +10,6 @@ endif ()
 #Configure CMake and Compiler -----------------------------------------------------------------------------#
 set( CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 set( CMAKE_CXX_STANDARD 14)
-set( CMAKE_CXX_FLAGS "-pthread")
 set( EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/bin) 
 set( LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/lib) 
 
@@ -23,15 +22,30 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     "MinSizeRel" "RelWithDebInfo")
 endif()
 
-option(LOCAL_SIMULATION "CoppeliaSim Client services" ON)
-if(LOCAL_SIMULATION)
-    add_definitions(-DLOCAL_SIMULATION)
-    add_definitions(-DNON_MATLAB_PARSING
-                    -DMAX_EXT_API_CONNECTIONS=255)
-endif(LOCAL_SIMULATION)
+add_definitions(-DLOCAL_SIMULATION)
+add_definitions(-DNON_MATLAB_PARSING
+                -DMAX_EXT_API_CONNECTIONS=255
+                -DWITHOUT_NUMPY
+                -DDO_NOT_USE_SHARED_MEMORY)
+
 #Add sub directories --------------------------------------------------------------------------------------#
-add_subdirectory(kernel)
+add_subdirectory(core_test)
 add_subdirectory(common)
-add_subdirectory(interfaces)
-add_subdirectory(user)
-add_subdirectory(test)
+add_subdirectory(coppeliaSim-client)
+
+#Add libs and include_directories -------------------------------------------------------------------------#
+include_directories(".")
+include_directories("common")
+include_directories("core_test")
+include_directories("coppeliaSim-client")
+include_directories("coppeliaSim-client/include")
+include_directories("coppeliaSim-client/include/stack")
+include_directories("coppeliaSim-client/remoteApi")
+
+file(GLOB USER_SOURCE "*.cpp")
+add_executable(${PROJECT_NAME} ${USER_SOURCE})
+
+target_link_libraries(${PROJECT_NAME} core_test)
+target_link_libraries(${PROJECT_NAME} common)
+target_link_libraries(${PROJECT_NAME} coppeliaSim_client)
+

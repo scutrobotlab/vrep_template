@@ -3,8 +3,7 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
-                "${workspaceFolder}/robot/kernel"
+                "${workspaceFolder}/**"
             ],
             "defines": [
                 "NON_MATLAB_PARSING",
@@ -16,6 +15,22 @@
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64",
             "configurationProvider": "vector-of-bool.cmake-tools"
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "NON_MATLAB_PARSING",
+                "MAX_EXT_API_CONNECTIONS=255",
+                "LOCAL_SIMULATION"
+            ],
+            "windowsSdkVersion": "10.0.18362.0",
+            "compilerPath": "E:/Program Files/Visual Studio 2019/VC/Tools/MSVC/14.24.28314/bin/Hostx64/x64/cl.exe",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "msvc-x86",
+            "cStandard": "c11"
         }
     ],
     "version": 4

@@ -1,12 +1,8 @@
-# **SCUT-RobotLab: Scarlet Tiger**
+# **SCUT-RobotLab: Infantry Assassin**
 ## **Introduction**
-- Project of General Quadruped Platform 
-- Refer to: MIT Mini Cheetah, ETH Anymal, IIT HyQReal, Stanford Doggo.
-- If you are interseted in this project and need more information, please contact Mentos Seetoo(1356046979@qq.com) to get an OneNote access.
-  
-<div align=center>
-<img src="./docs/brief.png" alt="Brief" >
-</div>
+- Project of Two Wheeled Jumping Robot. 
+- Refer to: ETH Ascento.
+- If you are interseted in this project and need more information, please contact Mentos Seetoo(1356046979@qq.com) to get an access.
 
 ## **How to run this program**?
 
@@ -20,30 +16,6 @@
 
 ## **Implementation details**
 
-### **1. Motion Scheduler**
-
-#### **Foot step placement:**
-
-#### **The following gaits is supported for now:**
-                   
-1. **Stand**:  phase     0.0->0.5->0.0->0.5
-                period     0.6                        Unit:second
-
-2. **Walk**:   phase     0.0->0.5->0.25->0.75
-                period    0.6                        Unit:second
-3. **Trot**:   phase     0.0->0.5->0.25->0.75
-                period     0.6                        Unit:second
-
-4. **Pace**:   phase     0.0->0.5->0.5->0.0
-                period    0.36                       Unit:second
-               
-5. **Gallop**: phase     0.0->0.5->0.5->0.0
-                period    0.36                       Unit:second
-
-#### **The following trajectory types are supported for now:**
-
-- **Sinusoidal curve, Cycloid curve, Polynomial curve**.  
-To get more information for the trajectory,please contact Silang Wu(1134138135@qq.com).
 
 ### **2. Motion Controller**
 - **Balance controller based on kinematic model**
@@ -69,18 +41,6 @@ To get more information for the trajectory,please contact Silang Wu(1134138135@q
 
   ```bash
   ~$ sudo apt-get install python-matplotlib python-numpy python2.7-dev
-  ```
-
-- GTK+3 (Not used for now)
-
-  ```bash
-  ~$ sudo apt-get install libgtk-3-dev
-  ```
-
-- Eigen3
-
-  ```bash
-  ~$ sudo apt-get install libeigen3-dev
   ```
 
 **Sumulation Enviroment :**

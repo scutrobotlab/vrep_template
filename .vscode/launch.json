@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug:Test",
+            "name": "Debug:Linux",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/robot/build/bin/Test",
+            "program": "${workspaceFolder}/build/bin/Test",
             "args": ["-t"],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/robot",
+            "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -24,13 +24,13 @@
             ]
         },
         {
-            "name": "Debug:Launch",
+            "name": "Debug:Windows",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/robot/build/bin/Launcher",
+            "program": "${workspaceFolder}/build/bin/Test.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/robot",
+            "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

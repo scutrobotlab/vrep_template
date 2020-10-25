@@ -31,12 +31,9 @@
 *.out
 *.app
 
-/robot/build/
-/robot/cache/*
-!/robot/cache/note.txt
-
+/build/
+/.vscode/
 /config/
-/RobotList.txt
 /*.out
 /*.config
 /*.mvdat
