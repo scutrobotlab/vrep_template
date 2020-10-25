@@ -32,7 +32,6 @@
 *.app
 
 /build/
-/.vscode/
 /config/
 /*.out
 /*.config

@@ -15,4 +15,6 @@ file(GLOB SIM_CLIENT_SOURCES "common/*.c" "common/*.cpp" "remoteApi/*.c" "common
 #Static Library
 add_library(coppeliaSim_client STATIC ${SIM_CLIENT_SOURCES})
 
+target_link_libraries(coppeliaSim_client "ws2_32")
+target_link_libraries(coppeliaSim_client "winmm")
 
