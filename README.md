@@ -10,7 +10,7 @@
 
 - **Start your Simulation:**
   1. Open scence file `Infantry_Assassin.ttt` with CoppeliaSim and start simulation.
-  2. Compile and run program `./robot/build/bin/Launcher`
+  2. Compile and run program `./build/bin/Assassin`
 
 ### **2. Run on your real robot** 
 
@@ -33,8 +33,8 @@
 
 ### **Running Enviroment :**
 
-> - Python 3 is required for matplotlib, but Numpy is optional.
-> - It's highly recommended to use GCC. If you run on win32 platform, you should install MinGW.
+> 1. Python 3 is required for matplotlib, but Numpy is optional.
+> 2. It's highly recommended to use GCC. If you run on win32 platform, you should install MinGW.
 
 **Ubuntu 18.04 LTS / Windows 10.0+**
 
@@ -51,5 +51,5 @@
 
 - Coppeliasim 4.0.1 (Recommended)
 
-- Qt ([version 5.12.0 +](http://download.qt.io/archive/qt/5.12/5.12.9/))
+- Qt ([version 5.12.0 +](http://download.qt.io/archive/qt/5.12/5.12.9/), Not required on Windows)
 
