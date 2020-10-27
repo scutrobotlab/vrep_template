@@ -1,6 +1,6 @@
 # **SCUT-RobotLab: Infantry Assassin**
 ## **Introduction**
-- Project of Two Wheeled Jumping Robot. 
+- Project to simulate Two Wheeled Jumping Robot. 
 - Refer to: ETH Ascento.
 - If you are interseted in this project and need more information, please contact Mentos Seetoo(1356046979@qq.com) to get an access.
 
@@ -9,7 +9,7 @@
 ### **1. Run with simulation**
 
 - **Start your Simulation:**
-  1. Open scence file `tiger.ttt` with CoppeliaSim and start simulation.
+  1. Open scence file `Infantry_Assassin.ttt` with CoppeliaSim and start simulation.
   2. Compile and run program `./robot/build/bin/Launcher`
 
 ### **2. Run on your real robot** 
@@ -31,19 +31,23 @@
 
 ## **Dependencies**
 
-**Running Enviroment :**
+### **Running Enviroment :**
 
-- Ubuntu 18.04 LTS (Recommended)
+> - Python 3 is required for matplotlib, but Numpy is optional.
+> - It's highly recommended to use GCC. If you run on win32 platform, you should install MinGW.
+
+**Ubuntu 18.04 LTS / Windows 10.0+**
 
 - CMake (version 3.12.0 +) 
 
-- Python 2 : Numpy,  Matplotlib
+- Python 3 : Numpy,  Matplotlib
 
   ```bash
   ~$ sudo apt-get install python-matplotlib python-numpy python2.7-dev
   ```
 
-**Sumulation Enviroment :**
+
+### **Sumulation Enviroment :**
 
 - Coppeliasim 4.0.1 (Recommended)
 

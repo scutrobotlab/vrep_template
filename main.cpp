@@ -73,9 +73,9 @@ int main(int argc, char *argv[])
     /*
         System Logger tool init.
     */
-    std::cout << "[Logger] Configuring... \n";
+    std::cout << "[System Logger] Configuring... \n";
     SysLog->getMilliTick_regist(getSimTime);
-    std::cout << "[Logger] Logger is ready to be used ! \n";
+    std::cout << "[System Logger] Logger is ready to be used ! \n";
 
     /*
         Simulation connection init.
@@ -88,6 +88,7 @@ int main(int argc, char *argv[])
 
     while (1)
     {
+        std::cout << "I'm running" <<endl;
         if (hClient->Is_Connected())
         {
             hClient->ComWithServer();
