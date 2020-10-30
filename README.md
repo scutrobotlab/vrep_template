@@ -25,9 +25,7 @@
 
   In our real robot, we use PD controller for joint control. And We hope this lower layer controller would be well characterised in simulation. However, CoppeliSim Robotics does not provide a proper way to perform highband PD control, so we have to run PD controller in coppeliasim custom client, which control frequency is lower than 200Hz.
 
-  We still don't know whether this method work well under this situation. Module testing is necessary but we havn't finished.
-
-
+  We still don't know whether this method works well. Module testing is needed but we havn't finished.
 
 ## **Dependencies**
 

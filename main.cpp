@@ -2,6 +2,7 @@
 #include "coppeliaSim.h"
 #include "matplotlibcpp.h"
 #include "sys_log.h"
+#include "two_wheel.h"
 
 /* Usr defines ---------------------------------------------------------------*/
 using namespace std; 
@@ -13,15 +14,15 @@ enum {
 };
 enum {
     left_hip = 0,
-    left_wheel,
     right_hip,
+    left_wheel,
     right_wheel
 };
 _simObjectHandle_Type* Body;
 _simObjectHandle_Type* Joint[4];
 _simSignalHandle_Type* EulerAngle[3];
 LogFilter_t Filters[3];
-
+CChassis    LeggedWheel(1,0,0.15,9999,9999,0);
 /* Founctions ----------------------------------------------------------------*/
 uint32_t getSimTime();
 
@@ -55,12 +56,30 @@ void Usr_ConfigSimulation()
 */
 void Usr_SendToSimulation()
 {
-
+    for(int i = 0; i < 4; i++)
+    {
+        Joint[i]->obj_Target.torque_f = (float)LeggedWheel.joint_Out[i];
+        Joint[i]->obj_Target.torque_f = 20;
+        Joint[i]->obj_Target.angVelocity_f = (Joint[i]->obj_Target.torque_f >= 0) ? 10000 : -10000;
+    }
 }
 
 void Usr_ReadFromSimulation()
 {
+    for(int i = 0; i < 4; i++)
+    {
+        LeggedWheel.joint_angle[i] = Joint[i]->obj_Data.angle_f;
+        LeggedWheel.joint_rpm[i] = Joint[i]->obj_Data.angVelocity_f;
+        LeggedWheel.joint_torque[i] = Joint[i]->obj_Data.torque_f;
+    }
+    LeggedWheel.Current_Pos.roll = EulerAngle[roll]->data;
+    LeggedWheel.Current_Pos.pitch = EulerAngle[pitch]->data;
+    LeggedWheel.Current_Pos.yaw = EulerAngle[yaw]->data;
 
+    cout << "RPY angle:" 
+    <<LeggedWheel.Current_Pos.roll << ","
+    << LeggedWheel.Current_Pos.pitch << ","
+    << LeggedWheel.Current_Pos.yaw << endl;
 }
 
 /**
@@ -75,7 +94,7 @@ int main(int argc, char *argv[])
     */
     std::cout << "[System Logger] Configuring... \n";
     SysLog->getMilliTick_regist(getSimTime);
-    std::cout << "[System Logger] Logger is ready to be used ! \n";
+    std::cout << "[System Logger] Logger is ready ! \n";
 
     /*
         Simulation connection init.
@@ -88,7 +107,6 @@ int main(int argc, char *argv[])
 
     while (1)
     {
-        std::cout << "I'm running" <<endl;
         if (hClient->Is_Connected())
         {
             hClient->ComWithServer();
