@@ -27,6 +27,12 @@
 
   We still don't know whether this method works well. Module testing is needed but we havn't finished.
 
+  PS: In our test, static torque error is vrey small and we can assume that there's no error between target and simulation output. 
+
+  Related URL：
+  - https://forum.coppeliarobotics.com/viewtopic.php?f=9&t=3933&sid=0b2737c12ac1442b617536addbe9cfad
+  - https://www.coppeliarobotics.com/helpFiles/en/jointCallbackFunctions.htm
+  - https://www.coppeliarobotics.com/helpFiles/en/jointDynamicsProperties.htm
 ## **Dependencies**
 
 ### **Running Enviroment :**

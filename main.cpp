@@ -58,9 +58,9 @@ void Usr_SendToSimulation()
 {
     for(int i = 0; i < 4; i++)
     {
-        Joint[i]->obj_Target.torque_f = (float)LeggedWheel.joint_Out[i];
-        Joint[i]->obj_Target.torque_f = 20;
-        Joint[i]->obj_Target.angVelocity_f = (Joint[i]->obj_Target.torque_f >= 0) ? 10000 : -10000;
+        LeggedWheel.joint_Out[i] = 10;
+        Joint[i]->obj_Target.angVelocity_f = (Joint[i]->obj_Target.torque_f >= 0) ? -2000 : 2000;
+        Joint[i]->obj_Target.torque_f = fabs(LeggedWheel.joint_Out[i]);
     }
 }
 
@@ -75,6 +75,7 @@ void Usr_ReadFromSimulation()
     LeggedWheel.Current_Pos.roll = EulerAngle[roll]->data;
     LeggedWheel.Current_Pos.pitch = EulerAngle[pitch]->data;
     LeggedWheel.Current_Pos.yaw = EulerAngle[yaw]->data;
+
 
     cout << "RPY angle:" 
     <<LeggedWheel.Current_Pos.roll << ","
