@@ -1,5 +1,5 @@
 /* Includes ------------------------------------------------------------------*/
-#include "coppeliaSim.h"
+#include "CoppeliaSim.h"
 #include "matplotlibcpp.h"
 #include "sys_log.h"
 #include "two_wheel.h"
@@ -41,10 +41,10 @@ void Usr_Main()
 void Usr_ConfigSimulation()
 {
     Body = CoppeliaSim->Add_Object("Body", OTHER_OBJECT, { SIM_ORIENTATION | CLIENT_RO, SIM_VELOCITY | CLIENT_RO });
-    Joint[left_hip] = CoppeliaSim->Add_Object("left_hip", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RO, SIM_FORCE | CLIENT_WO });
-    Joint[left_wheel] = CoppeliaSim->Add_Object("left_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RO, SIM_FORCE | CLIENT_WO});
-    Joint[right_hip] = CoppeliaSim->Add_Object("right_hip", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RO, SIM_FORCE | CLIENT_WO });
-    Joint[right_wheel] = CoppeliaSim->Add_Object("right_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RO, SIM_FORCE | CLIENT_WO });
+    Joint[left_hip] = CoppeliaSim->Add_Object("left_hip", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
+    Joint[left_wheel] = CoppeliaSim->Add_Object("left_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO});
+    Joint[right_hip] = CoppeliaSim->Add_Object("right_hip", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
+    Joint[right_wheel] = CoppeliaSim->Add_Object("right_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
     EulerAngle[yaw] = CoppeliaSim->Add_Object("Infantry.YawAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
     EulerAngle[pitch] = CoppeliaSim->Add_Object("Infantry.PitchAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
     EulerAngle[roll] = CoppeliaSim->Add_Object("Infantry.RollAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
