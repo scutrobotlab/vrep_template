@@ -1,16 +1,17 @@
-# **SCUT-RobotLab: Infantry Assassin**
+# **SCUT-RobotLab:Vrep Template Project**
+
 ## **Introduction**
-- Project to simulate Two Wheeled Jumping Robot. 
-- Refer to: ETH Ascento.
-- If you are interseted in this project and need more information, please contact Mentos Seetoo(1356046979@qq.com) to get an access.
+
+- Project to simulate Robot with C++ edited in Vscode. 
+- If you are interseted in this project and need more information, please contact Mentos Seetoo(1356046979@qq.com) or Clang(clangwu@163.com) to get an access.
 
 ## **How to run this program**?
 
 ### **1. Run with simulation**
 
 - **Start your Simulation:**
-  1. Open scence file `Infantry_Assassin.ttt` with CoppeliaSim and start simulation.
-  2. Compile and run program `./build/bin/Assassin`
+  1. Open scence file `YOUR_ROBOT_NAME.ttt` with CoppeliaSim and start simulation.
+  2. Compile and run program `./build/bin/YOUR_PROJECT_NAME`
 
 ### **2. Run on your real robot** 
 
@@ -18,6 +19,7 @@
 
 
 ### **2. Motion Controller**
+
 - **Balance controller based on kinematic model**
 
 
@@ -30,9 +32,11 @@
   PS: In our test, static torque error is vrey small and we can assume that there's no error between target and simulation output. 
 
   Related URL：
+
   - https://forum.coppeliarobotics.com/viewtopic.php?f=9&t=3933&sid=0b2737c12ac1442b617536addbe9cfad
   - https://www.coppeliarobotics.com/helpFiles/en/jointCallbackFunctions.htm
   - https://www.coppeliarobotics.com/helpFiles/en/jointDynamicsProperties.htm
+
 ## **Dependencies**
 
 ### **Running Enviroment :**
@@ -53,7 +57,7 @@
 
 ### **Sumulation Enviroment :**
 
-- Coppeliasim 4.0.1 (Recommended)
+- Coppeliasim (Recommended the newest version)
 
 - Qt ([version 5.12.0 +](http://download.qt.io/archive/qt/5.12/5.12.9/), Not required on Windows)
 
