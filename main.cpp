@@ -2,27 +2,20 @@
 #include "CoppeliaSim.h"
 #include "matplotlibcpp.h"
 #include "sys_log.h"
-#include "two_wheel.h"
+#include "core_test/car.h"
 
 /* Usr defines ---------------------------------------------------------------*/
 using namespace std; 
 namespace plt = matplotlibcpp;
-enum {
-    yaw = 0,
-    pitch,
-    roll
-};
-enum {
-    left_hip = 0,
-    right_hip,
-    left_wheel,
-    right_wheel
-};
+/*Object Handle -----------------------------------------------------------*/
 _simObjectHandle_Type* Body;
-_simObjectHandle_Type* Joint[4];
+_simObjectHandle_Type* Joint[5];
+/*Signal Handle -----------------------------------------------------------*/
 _simSignalHandle_Type* EulerAngle[3];
+
+/*Usr Parameters ----------------------------------------------------------*/
+mycar car;
 LogFilter_t Filters[3];
-CChassis    LeggedWheel(1,0,0.15,9999,9999,0);
 /* Founctions ----------------------------------------------------------------*/
 uint32_t getSimTime();
 
@@ -31,7 +24,8 @@ uint32_t getSimTime();
 */
 void Usr_Main()
 {
-    
+    //core code
+    car.car_spin();
 }
 
 /**
@@ -40,14 +34,15 @@ void Usr_Main()
 */
 void Usr_ConfigSimulation()
 {
-    Body = CoppeliaSim->Add_Object("Body", OTHER_OBJECT, { SIM_ORIENTATION | CLIENT_RO, SIM_VELOCITY | CLIENT_RO });
-    Joint[left_hip] = CoppeliaSim->Add_Object("left_hip", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
-    Joint[left_wheel] = CoppeliaSim->Add_Object("left_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO});
-    Joint[right_hip] = CoppeliaSim->Add_Object("right_hip", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
-    Joint[right_wheel] = CoppeliaSim->Add_Object("right_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
-    EulerAngle[yaw] = CoppeliaSim->Add_Object("Infantry.YawAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
-    EulerAngle[pitch] = CoppeliaSim->Add_Object("Infantry.PitchAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
-    EulerAngle[roll] = CoppeliaSim->Add_Object("Infantry.RollAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
+    Body = CoppeliaSim->Add_Object("car", OTHER_OBJECT, { SIM_ORIENTATION | CLIENT_RO, SIM_VELOCITY | CLIENT_RO });
+    Joint[lf_wheel] = CoppeliaSim->Add_Object("lf_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
+    Joint[lh_wheel] = CoppeliaSim->Add_Object("lh_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO});
+    Joint[rf_wheel] = CoppeliaSim->Add_Object("rf_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
+    Joint[rh_wheel] = CoppeliaSim->Add_Object("rh_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
+    Joint[servo] = CoppeliaSim->Add_Object("servo", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
+    EulerAngle[yaw] = CoppeliaSim->Add_Object("car.YawAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
+    EulerAngle[pitch] = CoppeliaSim->Add_Object("car.PitchAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
+    EulerAngle[roll] = CoppeliaSim->Add_Object("car.RollAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
 }
 
 /**
@@ -56,11 +51,14 @@ void Usr_ConfigSimulation()
 */
 void Usr_SendToSimulation()
 {
+    
     for(int i = 0; i < 4; i++)
     {
-        LeggedWheel.joint_Out[i] = 10;
-        Joint[i]->obj_Target.angVelocity_f = (Joint[i]->obj_Target.torque_f >= 0) ? -2000 : 2000;
-        Joint[i]->obj_Target.torque_f = fabs(LeggedWheel.joint_Out[i]);
+        if(i == servo){
+            Joint[i]->obj_Target.angle_f = car.mycar_data.joint_data.out[i];
+            return;
+        }
+        Joint[i]->obj_Target.angVelocity_f = car.mycar_data.joint_data.out[i];
     }
 }
 
@@ -68,19 +66,24 @@ void Usr_ReadFromSimulation()
 {
     for(int i = 0; i < 4; i++)
     {
-        LeggedWheel.joint_angle[i] = Joint[i]->obj_Data.angle_f;
-        LeggedWheel.joint_rpm[i] = Joint[i]->obj_Data.angVelocity_f;
-        LeggedWheel.joint_torque[i] = Joint[i]->obj_Data.torque_f;
+        car.mycar_data.joint_data.curr_pos[i] = Joint[i]->obj_Data.angle_f;
+        // car.mycar_data.joint_data.curr_vel[i] = Joint[i]->obj_Data.angVelocity_f;
+        car.mycar_data.joint_data.curr_torque[i] = Joint[i]->obj_Data.torque_f;
     }
-    LeggedWheel.Current_Pos.roll = EulerAngle[roll]->data;
-    LeggedWheel.Current_Pos.pitch = EulerAngle[pitch]->data;
-    LeggedWheel.Current_Pos.yaw = EulerAngle[yaw]->data;
+    car.mycar_data.roll = EulerAngle[roll]->data;
+    car.mycar_data.pitch = EulerAngle[pitch]->data;
+    car.mycar_data.yaw = EulerAngle[yaw]->data;
 
+    // for (size_t i = 0; i < 4; i++)
+    // {
+    //     cout << "vel" << i <<:  " <<car.mycar_data.joint_data.curr_vel[i];
+    // }
+    
 
     cout << "RPY angle:" 
-    <<LeggedWheel.Current_Pos.roll << ","
-    << LeggedWheel.Current_Pos.pitch << ","
-    << LeggedWheel.Current_Pos.yaw << endl;
+    <<car.mycar_data.roll << ","
+    << car.mycar_data.pitch << ","
+    << car.mycar_data.yaw << endl;
 }
 
 /**
