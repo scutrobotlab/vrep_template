@@ -10,8 +10,9 @@
 ### **1. Run with simulation**
 
 - **Start your Simulation:**
-  1. Open scence file `YOUR_ROBOT_NAME.ttt` with CoppeliaSim and start simulation.
-  2. Compile and run program `./build/bin/YOUR_PROJECT_NAME`
+  1. Open scence file `car.ttt` with CoppeliaSim.
+  2. Compile and run program `./build/bin/Mycar`
+  3. Start simulation using the button in CoppeliaSim.
 
 ### **2. Run on your real robot** 
 
