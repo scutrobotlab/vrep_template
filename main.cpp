@@ -52,7 +52,7 @@ void Usr_ConfigSimulation()
 void Usr_SendToSimulation()
 {
     
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 5; i++)
     {
         if(i == servo){
             Joint[i]->obj_Target.angle_f = car.mycar_data.joint_data.out[i];
