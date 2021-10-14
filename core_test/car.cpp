@@ -12,7 +12,7 @@ void mycar::car_spin()
         cnt++;
 
         for (size_t i = 0; i < 4; i++)
-                mycar_data.joint_data.tar_vel[i] = -10;
+                mycar_data.joint_data.tar_vel[i] = -12;
 
         
 
