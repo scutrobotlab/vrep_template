@@ -1,21 +1,19 @@
 /* Includes ------------------------------------------------------------------*/
 #include "CoppeliaSim.h"
 #include "matplotlibcpp.h"
-#include "sys_log.h"
-#include "core_test/car.h"
+#include "core_test/gimble.h"
 
 /* Usr defines ---------------------------------------------------------------*/
 using namespace std; 
 namespace plt = matplotlibcpp;
 /*Object Handle -----------------------------------------------------------*/
 _simObjectHandle_Type* Body;
-_simObjectHandle_Type* Joint[5];
+_simObjectHandle_Type* Joint;
 /*Signal Handle -----------------------------------------------------------*/
 _simSignalHandle_Type* EulerAngle[3];
 
 /*Usr Parameters ----------------------------------------------------------*/
-mycar car;
-LogFilter_t Filters[3];
+Gimble gimble;
 /* Founctions ----------------------------------------------------------------*/
 uint32_t getSimTime();
 
@@ -25,7 +23,7 @@ uint32_t getSimTime();
 void Usr_Main()
 {
     //core code
-    car.car_spin();
+    gimble.task();
 }
 
 /**
@@ -34,15 +32,8 @@ void Usr_Main()
 */
 void Usr_ConfigSimulation()
 {
-    Body = CoppeliaSim->Add_Object("car", OTHER_OBJECT, { SIM_ORIENTATION | CLIENT_RO, SIM_VELOCITY | CLIENT_RO });
-    Joint[lf_wheel] = CoppeliaSim->Add_Object("lf_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
-    Joint[lh_wheel] = CoppeliaSim->Add_Object("lh_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO});
-    Joint[rf_wheel] = CoppeliaSim->Add_Object("rf_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
-    Joint[rh_wheel] = CoppeliaSim->Add_Object("rh_wheel", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
-    Joint[servo] = CoppeliaSim->Add_Object("servo", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RW, SIM_FORCE | CLIENT_RO });
-    EulerAngle[yaw] = CoppeliaSim->Add_Object("car.YawAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
-    EulerAngle[pitch] = CoppeliaSim->Add_Object("car.PitchAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
-    EulerAngle[roll] = CoppeliaSim->Add_Object("car.RollAng", SIM_FLOAT_SIGNAL, { SIM_SIGNAL_OP | CLIENT_RO });
+    Body = CoppeliaSim->Add_Object("base", OTHER_OBJECT, { SIM_ORIENTATION | CLIENT_RO, SIM_VELOCITY | CLIENT_RO });
+    Joint = CoppeliaSim->Add_Object("joint_a1", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RO, SIM_FORCE | CLIENT_RW });
 }
 
 /**
@@ -51,39 +42,17 @@ void Usr_ConfigSimulation()
 */
 void Usr_SendToSimulation()
 {
-    
-    for(int i = 0; i < 5; i++)
-    {
-        if(i == servo){
-            Joint[i]->obj_Target.angle_f = car.mycar_data.joint_data.out[i];
-            return;
-        }
-        Joint[i]->obj_Target.angVelocity_f = car.mycar_data.joint_data.out[i];
-    }
+    Joint->obj_Target.torque_f = gimble.gimble_joint.tau_d;
 }
 
 void Usr_ReadFromSimulation()
 {
-    for(int i = 0; i < 4; i++)
-    {
-        car.mycar_data.joint_data.curr_pos[i] = Joint[i]->obj_Data.angle_f;
-        // car.mycar_data.joint_data.curr_vel[i] = Joint[i]->obj_Data.angVelocity_f;
-        car.mycar_data.joint_data.curr_torque[i] = Joint[i]->obj_Data.torque_f;
-    }
-    car.mycar_data.roll = EulerAngle[roll]->data;
-    car.mycar_data.pitch = EulerAngle[pitch]->data;
-    car.mycar_data.yaw = EulerAngle[yaw]->data;
-
-    // for (size_t i = 0; i < 4; i++)
-    // {
-    //     cout << "vel" << i <<:  " <<car.mycar_data.joint_data.curr_vel[i];
-    // }
-    
-
-    cout << "RPY angle:" 
-    <<car.mycar_data.roll << ","
-    << car.mycar_data.pitch << ","
-    << car.mycar_data.yaw << endl;
+    gimble.gimble_joint.tau_fb = Joint->obj_Data.torque_f;
+    gimble.gimble_joint.pos_fb = Joint->obj_Data.angle_f;
+    gimble.gimble_joint.vel_fb = Joint->obj_Data.angVelocity_f;
+    std::cout << "gimble joint torque : " << gimble.gimble_joint.tau_fb<< endl;
+    std::cout << "gimble joint position : " << gimble.gimble_joint.pos_fb<< endl;
+    std::cout << "gimble joint velocity : " << gimble.gimble_joint.vel_fb<< endl;
 }
 
 /**
@@ -97,7 +66,6 @@ int main(int argc, char *argv[])
         System Logger tool init.
     */
     std::cout << "[System Logger] Configuring... \n";
-    SysLog->getMilliTick_regist(getSimTime);
     std::cout << "[System Logger] Logger is ready ! \n";
 
     /*
@@ -119,11 +87,5 @@ int main(int argc, char *argv[])
         Usr_Main();
         Usr_SendToSimulation();
     };
-}
-
-
-uint32_t getSimTime()
-{ 
-    return 0;
 }
 /************************* END-OF-FILE SCUT-ROBOTLAB **************************/

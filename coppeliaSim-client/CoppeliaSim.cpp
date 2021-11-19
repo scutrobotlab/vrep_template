@@ -323,6 +323,10 @@ bool CoppeliaSim_Client::ComWithServer()
 						OP_Obj.read_return_code = simxGetJointForce(clientID, Joint->obj_handle,
 																	&Joint->obj_Data.torque_f, simx_opmode_streaming);
 						break;
+					case SIM_VELOCITY:
+						OP_Obj.read_return_code = simxGetObjectFloatParameter(clientID,Joint->obj_handle,sim_jointfloatparam_velocity,
+																			  &Joint->obj_Data.angVelocity_f,simx_opmode_streaming);
+						break;
 					default:
 						break;
 					}
@@ -341,8 +345,14 @@ bool CoppeliaSim_Client::ComWithServer()
 																			  Joint->obj_Target.angVelocity_f, simx_opmode_oneshot);
 						break;
 					case SIM_FORCE:
+    					Joint->obj_Target.angVelocity_f = ((Joint->obj_Target.torque_f>0)?true:false)?+9999:-9999;
+						Joint->obj_Target.torque_f = (Joint->obj_Target.torque_f>0)?Joint->obj_Target.torque_f:(-Joint->obj_Target.torque_f);
+
 						OP_Obj.write_return_code = simxSetJointForce(clientID, Joint->obj_handle,
 																	 Joint->obj_Target.torque_f, simx_opmode_oneshot);
+						OP_Obj.write_return_code = simxSetJointTargetVelocity(clientID, Joint->obj_handle,
+																	 Joint->obj_Target.angVelocity_f, simx_opmode_oneshot);
+						break;
 					default:
 						break;
 					}

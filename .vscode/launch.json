@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug:Linux",
+            "name": "test_linux",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/bin/Mycar",
+            "program": "${workspaceFolder}/build/bin/kr3",
             "args": ["-t"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -24,10 +24,10 @@
             ]
         },
         {
-            "name": "Debug:Windows",
+            "name": "test_win",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/bin/Mycar.exe",
+            "program": "${workspaceFolder}/build/bin/kr3.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

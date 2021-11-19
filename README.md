@@ -3,6 +3,7 @@
 ## **Introduction**
 
 - Project to simulate Robot with C++ edited in Vscode. 
+- Please have a look at Gimble::task() located in the gimble.cpp, you 'll have a macro understanding of using vrep for motor/joint control.
 - If you are interseted in this project and need more information, please contact Mentos Seetoo(1356046979@qq.com) or Clang(clangwu@163.com) to get an access.
 
 ## **How to run this program**?
@@ -10,8 +11,8 @@
 ### **1. Run with simulation**
 
 - **Start your Simulation:**
-  1. Open scence file `car.ttt` with CoppeliaSim.
-  2. Compile and run program `./build/bin/Mycar`
+  1. Open scence file `kr3.ttt` with CoppeliaSim.
+  2. Compile and run program `./build/bin/kr3.exe`
   3. Start simulation using the button in CoppeliaSim.
 
 ### **2. Run on your real robot** 
@@ -58,7 +59,7 @@
 
 ### **Sumulation Enviroment :**
 
-- Coppeliasim (Recommended the newest version)
+- Coppeliasim (Recommended version: 4.0.0)
 
 - Qt ([version 5.12.0 +](http://download.qt.io/archive/qt/5.12/5.12.9/), Not required on Windows)
 

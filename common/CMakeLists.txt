@@ -5,7 +5,6 @@ file(GLOB COMMON_SOURCE "*.cpp")
 
 #Static Library
 add_library(common STATIC ${COMMON_SOURCE})
-
 #For matplotlib-cpp
 add_definitions(-DWITHOUT_NUMPY)
 find_package(Python3 COMPONENTS Development)

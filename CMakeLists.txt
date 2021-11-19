@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(Mycar)
+project(kr3)
 
 #Make sure no in-source build -----------------------------------------------------------------------------#
 if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
