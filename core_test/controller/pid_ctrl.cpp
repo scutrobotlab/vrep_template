@@ -5,12 +5,6 @@ pid_ctrl::pid_ctrl(JointDataTypedef &joint, CtrlObjectEnumdef obj)
 {   
     _joint = &joint;
     _obj = obj;
-    pos_data = { 0 };
-    vel_data = { 0 };
-    tau_data = { 0 };
-    set_param(pos_data, 0, 0, 0, 200, 200);
-    set_param(vel_data, 0, 0, 0, 200, 200);
-    set_param(tau_data, 0, 0, 0, 200, 200);
 }
 pid_ctrl::~pid_ctrl()
 {}
@@ -40,11 +34,34 @@ float pid_ctrl::ctrl(PIDDataTypedef &_ctrl, float tar, float curr)
     return _ctrl.out;
 }
 
-void set_param(PIDDataTypedef &ctrl, float _p, float _i, float _d, float i_limit, float out_limit)
+void pid_ctrl::set_param(CtrlObjectEnumdef obj, float _p, float _i, float _d, float i_limit, float out_limit)
 {
-    ctrl._p = _p;
-    ctrl._i = _i;
-    ctrl._d = _d;
-    ctrl.i_limit = i_limit;
-    ctrl.out_limit = out_limit;
+    PIDDataTypedef *ctrl;
+    switch (obj)
+    {
+    case CtrlObjectEnumdef::pos_type:
+        ctrl = &pos_data;
+        break;
+    case CtrlObjectEnumdef::vel_type:
+        ctrl = &vel_data;
+        break;
+    case CtrlObjectEnumdef::tau_type:
+        ctrl = &tau_data;
+        break;
+    default:
+        break;
+    }
+
+    ctrl->_p = _p;
+    ctrl->_i = _i;
+    ctrl->_d = _d;
+    ctrl->i_limit = i_limit;
+    ctrl->out_limit = out_limit;
+}
+
+void pid_ctrl::init()
+{
+    pos_data = { 0 };
+    vel_data = { 0 };
+    tau_data = { 0 };
 }

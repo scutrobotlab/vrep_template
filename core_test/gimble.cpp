@@ -6,7 +6,7 @@ void Gimble::task()
         -You can validate your algorithm such as 3-loop-PID, LQR, MPC, WBC, ADRC, SMC and so on.
         -The control target is decided by yourself，and the final output to the joint must be torque(or may say current).
         */
-       /*---1-> triangular wave generator demo---*/
+        /*---1-> triangular wave generator demo---*/
         // static float delta = 1;
         // gimble_joint.tau_d += delta;
         // if (gimble_joint.tau_d >= 5)
@@ -15,6 +15,9 @@ void Gimble::task()
         //         delta = 1;
 
         /*---2-> 3-loop-PID demo---*/
+        Controller _ctrl();
+        
+        gimble_joint.pos_d = 1.57;
 
 }
 void Gimble::init()

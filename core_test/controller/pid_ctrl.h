@@ -33,10 +33,11 @@ private:
     JointDataTypedef *_joint; 
 public:
     pid_ctrl(JointDataTypedef &joint, CtrlObjectEnumdef obj);
+    void init();
     float ctrl();
     float ctrl(PIDDataTypedef &_ctrl, float tar, float curr);
 
-    void set_param(PIDDataTypedef &ctrl, float _p, float _i, float _d, float i_limit, float out_limit);
+    void set_param(CtrlObjectEnumdef obj, float _p, float _i, float _d, float i_limit, float out_limit);
     ~pid_ctrl();
 };
 

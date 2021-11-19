@@ -6,14 +6,15 @@ class Controller
 {
     private:
         /* data */
+        CtrlMethodEnumdef ctrl_method;
     public:
-        Controller();
+        pid_ctrl _pid;
+        lqr_ctrl _lqr;
+        Controller(CtrlMethodEnumdef ctrlMethod);
         ~Controller();
         void init();
         void task();
-        void pid_ctrl();
-        void lqr_ctrl();
-        void mpc_ctrl();
+
 };
 
 
