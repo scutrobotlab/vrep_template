@@ -17,6 +17,8 @@
   * 															  Add multi-client.
   * <tr><td>2020-05-10   	<td> 1.2     <td>Mentos Seetoo	  <td>Fixed bug in reading images.
   * <tr><td>2020-05-17   	<td> 1.3     <td>Sigma			  <td>Add simulation timestamp function.
+  * 
+  * <tr><td>2021-11-19   	<td> 1.4     <td>Clang			  <td>Fix bug in reading joint velocity and optimize control of joint torque.
   * </table>  
   * 
   ==============================================================================
