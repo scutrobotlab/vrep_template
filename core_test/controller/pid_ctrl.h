@@ -1,5 +1,6 @@
 #pragma once
 #include "common/common.h"
+#include "controller.h"
 
 typedef struct PIDData
 {
@@ -22,7 +23,7 @@ typedef struct PIDData
     float out_limit;//for output limited
 }PIDDataTypedef;
 
-class pid_ctrl
+class pid_ctrl :public Controller
 {
 private:
     /* data */
@@ -30,14 +31,18 @@ private:
     PIDDataTypedef pos_data;
     PIDDataTypedef vel_data;
     PIDDataTypedef tau_data;
-    JointDataTypedef *_joint; 
+    
 public:
-    pid_ctrl(JointDataTypedef &joint, CtrlObjectEnumdef obj);
+    pid_ctrl();
+
     void init();
+    void task();
     float ctrl();
     float ctrl(PIDDataTypedef &_ctrl, float tar, float curr);
 
-    void set_param(CtrlObjectEnumdef obj, float _p, float _i, float _d, float i_limit, float out_limit);
+    void set_ctrlobj(CtrlObjectEnumdef obj);
+    void set_joint(JointDataTypedef &joint);
+    void set_param(CtrlObjectEnumdef obj, PIDParamTypedef &pid_param);
     ~pid_ctrl();
 };
 

@@ -1,20 +1,16 @@
 #pragma once
-#include "pid_ctrl.h"
-#include "lqr_ctrl.h"
-
+#include "common/common.h"
 class Controller
 {
     private:
         /* data */
-        CtrlMethodEnumdef ctrl_method;
     public:
-        pid_ctrl _pid;
-        lqr_ctrl _lqr;
-        Controller(CtrlMethodEnumdef ctrlMethod);
-        ~Controller();
-        void init();
-        void task();
+        JointDataTypedef *_joint; 
 
+        Controller();
+        ~Controller();
+        virtual void init() = 0;
+        virtual void task() = 0;
 };
 
 

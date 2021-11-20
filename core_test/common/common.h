@@ -1,3 +1,15 @@
+#pragma once
+typedef struct pid_param
+{
+    /* data */
+    float _p;
+    float _i;
+    float _d;
+    float i_limit;
+    float out_limit;
+}PIDParamTypedef;
+
+
 typedef struct JointData
 {
         /*---command---*/

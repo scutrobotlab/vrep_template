@@ -2,7 +2,6 @@
 #include "CoppeliaSim.h"
 #include "matplotlibcpp.h"
 #include "core_test/gimble.h"
-
 /* Usr defines ---------------------------------------------------------------*/
 using namespace std; 
 namespace plt = matplotlibcpp;
@@ -16,6 +15,13 @@ _simSignalHandle_Type* EulerAngle[3];
 Gimble gimble;
 /* Founctions ----------------------------------------------------------------*/
 uint32_t getSimTime();
+/**
+* @brief This is the initialization function for user.
+*/
+void Usr_init()
+{
+    gimble.init();
+}
 
 /**
 * @brief This is the main function for user.
@@ -77,6 +83,10 @@ int main(int argc, char *argv[])
     Usr_ConfigSimulation();
     std::cout << "[CoppeliaSim Client] Configure done, simulation is ready ! \n";
 
+    /*
+        User init.
+    */
+    Usr_init();
     while (1)
     {
         if (hClient->Is_Connected())

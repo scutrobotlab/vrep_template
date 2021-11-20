@@ -1,5 +1,7 @@
 #pragma once
-#include "controller/controller.h""
+#include "controller/pid_ctrl.h"
+#include "controller/lqr_ctrl.h"
+
         enum 
         {
                 yaw = 0,
@@ -19,6 +21,7 @@
         {
         private:
                 /* data */
+                pid_ctrl pid;
         public:
                 Gimble(/* args */);
                 ~Gimble();
