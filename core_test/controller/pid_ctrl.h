@@ -31,7 +31,7 @@ private:
     PIDDataTypedef pos_data;
     PIDDataTypedef vel_data;
     PIDDataTypedef tau_data;
-    
+    bool is_tau_loop = true;
 public:
     pid_ctrl();
 
@@ -40,6 +40,7 @@ public:
     float ctrl();
     float ctrl(PIDDataTypedef &_ctrl, float tar, float curr);
 
+    void enable(bool yn);
     void set_ctrlobj(CtrlObjectEnumdef obj);
     void set_joint(JointDataTypedef &joint);
     void set_param(CtrlObjectEnumdef obj, PIDParamTypedef &pid_param);

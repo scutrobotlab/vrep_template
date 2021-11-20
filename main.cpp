@@ -39,7 +39,7 @@ void Usr_Main()
 void Usr_ConfigSimulation()
 {
     Body = CoppeliaSim->Add_Object("base", OTHER_OBJECT, { SIM_ORIENTATION | CLIENT_RO, SIM_VELOCITY | CLIENT_RO });
-    Joint = CoppeliaSim->Add_Object("joint_a1", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RO, SIM_FORCE | CLIENT_RW });
+    Joint = CoppeliaSim->Add_Object("joint", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RO, SIM_FORCE | CLIENT_RW });
 }
 
 /**
@@ -56,9 +56,9 @@ void Usr_ReadFromSimulation()
     gimble.gimble_joint.tau_fb = Joint->obj_Data.torque_f;
     gimble.gimble_joint.pos_fb = Joint->obj_Data.angle_f;
     gimble.gimble_joint.vel_fb = Joint->obj_Data.angVelocity_f;
-    std::cout << "gimble joint torque : " << gimble.gimble_joint.tau_fb<< endl;
-    std::cout << "gimble joint position : " << gimble.gimble_joint.pos_fb<< endl;
-    std::cout << "gimble joint velocity : " << gimble.gimble_joint.vel_fb<< endl;
+    // std::cout << "gimble joint torque : " << gimble.gimble_joint.tau_fb<< endl;
+    // std::cout << "gimble joint position : " << gimble.gimble_joint.pos_fb<< endl;
+    // std::cout << "gimble joint velocity : " << gimble.gimble_joint.vel_fb<< endl;
 }
 
 /**
