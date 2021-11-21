@@ -83,7 +83,7 @@ void pid_ctrl::set_param(CtrlObjectEnumdef obj, PIDParamTypedef &pid_param)
     ctrl->out_limit = pid_param.out_limit;
 }
 
-void pid_ctrl::enable(bool yn)
+void pid_ctrl::tau_loop_enable(bool yn)
 {
     is_tau_loop = yn;
 }

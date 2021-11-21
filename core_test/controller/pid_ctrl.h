@@ -40,7 +40,7 @@ public:
     float ctrl();
     float ctrl(PIDDataTypedef &_ctrl, float tar, float curr);
 
-    void enable(bool yn);
+    void tau_loop_enable(bool yn);
     void set_ctrlobj(CtrlObjectEnumdef obj);
     void set_joint(JointDataTypedef &joint);
     void set_param(CtrlObjectEnumdef obj, PIDParamTypedef &pid_param);

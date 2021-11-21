@@ -6,19 +6,21 @@ void Gimble::init()
         gimble_body = {0};
         gimble_joint = {0};
         /*---controller init---*/
+
+        /*--- PID demo ---*/
         pid.init();
-        pid.enable(false);
+        pid.tau_loop_enable(false);
         pid.set_joint(gimble_joint);
         pid.set_ctrlobj(CtrlObjectEnumdef::pos_type);
-        _pos = {5, 0, 0.1, 10, 10};
-        _vel = {0.17, 0.07, 0.27, 10, 10};//p 0.17 i 0.07 d 0.27
+        gimble_joint.pos_d = 2;
+        _pos = {5.5, 0, 0.2, 10, 10};//p-5.5 i-0.0 d-0.24 
+        _vel = {0.25, 0.06, 0.27, 10, 10};//p 0.3 i 0.08 d 0.27
         _tau = {1, 0, 0, 10, 10};
 
         pid.set_param(CtrlObjectEnumdef::pos_type, _pos);
         pid.set_param(CtrlObjectEnumdef::vel_type, _vel);
         pid.set_param(CtrlObjectEnumdef::tau_type, _tau);
-
-        gimble_joint.pos_d = 1.57;
+        
 }
 void Gimble::adjust()
 {
@@ -113,11 +115,11 @@ void Gimble::adjust()
                         std::cout << "gimble joint position : " << gimble_joint.pos_fb<< std::endl;  
                         break;   
                 case 'z':
-                        gimble_joint.pos_d += 0.2;
+                        gimble_joint.pos_d += 1;
                         std::cout << "pos target : " << gimble_joint.pos_d<< std::endl;  
                         break;
                 case 'c':
-                        gimble_joint.pos_d -= 0.2;
+                        gimble_joint.pos_d -= 1;
                         std::cout << "pos target : " << gimble_joint.pos_d<< std::endl;  
                         break;
                 case 'n':
@@ -153,6 +155,8 @@ void Gimble::task()
         /*---2-> 3-loop-PID demo---*/  
         pid.task();
         adjust();
+        /*---3-> LQR demo---*/
+
 }
 Gimble::Gimble(/* args */)
 {
