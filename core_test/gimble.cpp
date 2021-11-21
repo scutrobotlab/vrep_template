@@ -9,8 +9,8 @@ void Gimble::init()
         pid.init();
         pid.enable(false);
         pid.set_joint(gimble_joint);
-        pid.set_ctrlobj(CtrlObjectEnumdef::vel_type);
-        _pos = {0.5, 0, 0.1, 10, 10};
+        pid.set_ctrlobj(CtrlObjectEnumdef::pos_type);
+        _pos = {5, 0, 0.1, 10, 10};
         _vel = {0.17, 0.07, 0.27, 10, 10};//p 0.17 i 0.07 d 0.27
         _tau = {1, 0, 0, 10, 10};
 
@@ -18,11 +18,13 @@ void Gimble::init()
         pid.set_param(CtrlObjectEnumdef::vel_type, _vel);
         pid.set_param(CtrlObjectEnumdef::tau_type, _tau);
 
-        gimble_joint.vel_d = 1;
+        gimble_joint.pos_d = 1.57;
 }
 void Gimble::adjust()
 {
         char key;
+        static float delta = 0.005;
+        static int type = 1;
         if (_kbhit()) 
         {  
                 key = _getch();  
@@ -30,29 +32,79 @@ void Gimble::adjust()
         }
         switch (key)
         {
+                case 'b':
+                        type = !type;
+                        if (type)
+                                std::cout <<"Position mode " <<std::endl;
+                        else
+                                std::cout <<"Velocity mode " <<std::endl;
+                        break;
                 case 'w':
-                        _vel._p += 0.005;
-                        std::cout <<" vel_P "<<_vel._p <<std::endl;
+                        if (type)
+                        {
+                                _pos._p += delta;
+                                std::cout <<" pos_p "<<_pos._p <<std::endl;
+                        }else
+                        {
+                                _vel._p += delta;
+                                std::cout <<" vel_p "<<_vel._p <<std::endl;
+                        }
                         break;
                 case 's':
-                        _vel._p -= 0.005;
-                        std::cout <<" vel_P "<<_vel._p <<std::endl;
+                        if (type)
+                        {
+                                _pos._p -= delta;
+                                std::cout <<" pos_p "<<_pos._p <<std::endl;
+                        }else
+                        {
+                                _vel._p -= delta;
+                                std::cout <<" vel_p "<<_vel._p <<std::endl;
+                        }
                         break;
                 case 'a':
-                        _vel._i += 0.005;
-                        std::cout <<" vel_I "<<_vel._i <<std::endl;
+                        if (type)
+                        {
+                                _pos._i += delta;
+                                std::cout <<" pos_i "<<_pos._i <<std::endl;
+                        }else
+                        {
+                                _vel._i += delta;
+                                std::cout <<" vel_i "<<_vel._i <<std::endl;
+                        }
+                        
                         break;
                 case 'd':
-                        _vel._i -= 0.005;
-                        std::cout <<" vel_I "<<_vel._i <<std::endl;
+                        if (type)
+                        {
+                                _pos._i -= delta;
+                                std::cout <<" pos_i "<<_pos._i <<std::endl;
+                        }else
+                        {
+                                _vel._i -= delta;
+                                std::cout <<" vel_i "<<_vel._i <<std::endl;
+                        }
                         break;
                 case 'q':
-                        _vel._d += 0.005;
-                        std::cout <<" vel_D "<<_vel._d <<std::endl;
+                        if (type)
+                        {
+                                _pos._d += delta;
+                                std::cout <<" pos_d "<<_pos._d <<std::endl;
+                        }else
+                        {
+                                _vel._d += delta;
+                                std::cout <<" vel_d "<<_vel._d <<std::endl;
+                        }
                         break;
                 case 'e':
-                        _vel._d -= 0.005;
-                        std::cout <<" vel_D "<<_vel._d <<std::endl;
+                        if (type)
+                        {
+                                _pos._d -= delta;
+                                std::cout <<" pos_d "<<_pos._d <<std::endl;
+                        }else
+                        {
+                                _vel._d -= delta;
+                                std::cout <<" vel_d "<<_vel._d <<std::endl;
+                        }
                         break;      
                 case 'v':
                         std::cout << "gimble joint velocity : " << gimble_joint.vel_fb<< std::endl;  
@@ -61,12 +113,20 @@ void Gimble::adjust()
                         std::cout << "gimble joint position : " << gimble_joint.pos_fb<< std::endl;  
                         break;   
                 case 'z':
-                        gimble_joint.vel_d += 0.2;
-                        std::cout << "velocity target : " << gimble_joint.vel_d<< std::endl;  
+                        gimble_joint.pos_d += 0.2;
+                        std::cout << "pos target : " << gimble_joint.pos_d<< std::endl;  
                         break;
                 case 'c':
-                        gimble_joint.vel_d -= 0.2;
-                        std::cout << "velocity target : " << gimble_joint.vel_d<< std::endl;  
+                        gimble_joint.pos_d -= 0.2;
+                        std::cout << "pos target : " << gimble_joint.pos_d<< std::endl;  
+                        break;
+                case 'n':
+                        delta += 0.005;
+                        std::cout << "delta: " << delta << std::endl;  
+                        break;
+                case 'm':
+                        delta -= 0.005;
+                        std::cout << "delta: " << delta << std::endl;  
                         break;
                 default:
                         break;
