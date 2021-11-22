@@ -9,3 +9,7 @@ lqr_ctrl::~lqr_ctrl()
 }
 void lqr_ctrl::init()
 {}
+
+void lqr_ctrl::task()
+{
+}

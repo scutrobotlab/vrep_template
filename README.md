@@ -11,8 +11,8 @@
 ### **1. Run with simulation**
 
 - **Start your Simulation:**
-  1. Open scence file `kr3.ttt` with CoppeliaSim.
-  2. Compile and run program `./build/bin/kr3.exe`
+  1. Open scence file `test.ttt` with CoppeliaSim.
+  2. Compile and run program `./build/bin/test.exe` on Windows, (`./build/bin/test` on Linux)
   3. Start simulation using the button in CoppeliaSim.
 
 ### **2. Run on your real robot** 
@@ -50,16 +50,16 @@
 
 - CMake (version 3.12.0 +) 
 
-- Python 3 : Numpy,  Matplotlib
+- Python 3 : Numpy,  Matplotlib, Eigen3
 
   ```bash
-  ~$ sudo apt-get install python-matplotlib python-numpy python2.7-dev
+  ~$ sudo apt-get install python-matplotlib python-numpy python2.7-dev libeigen3-dev  
   ```
 
 
 ### **Sumulation Enviroment :**
 
-- Coppeliasim (Recommended version: 4.0.0)
+- Coppeliasim (Recommended newer than(also include) version: 4.0.0)
 
 - Qt ([version 5.12.0 +](http://download.qt.io/archive/qt/5.12/5.12.9/), Not required on Windows)
 

@@ -11,7 +11,7 @@ void Gimble::init()
                         No initialization steps.
                 */
         /*--- PID demo ---*/  
-                /*      
+                      
                         pid.init();
                         pid.tau_loop_enable(false);
                         pid.set_joint(gimble_joint);
@@ -24,7 +24,7 @@ void Gimble::init()
                         pid.set_param(CtrlObjectEnumdef::pos_type, _pos);
                         pid.set_param(CtrlObjectEnumdef::vel_type, _vel);
                         pid.set_param(CtrlObjectEnumdef::tau_type, _tau);
-                */
+                
         /*--- LQR demo ---*/
 
 }
@@ -46,10 +46,10 @@ void Gimble::task()
                                 delta = 1;
                 */
         /*--- PID demo ---*/  
-                /*
+                
                         pid.adjust();
                         pid.task();
-                */
+                
         /*--- LQR demo ---*/
 
 }
