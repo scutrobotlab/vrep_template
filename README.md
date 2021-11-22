@@ -3,7 +3,8 @@
 ## **Introduction**
 
 - Project to simulate Robot with C++ edited in Vscode. 
-- If you are interseted in this project and need more information, please contact Mentos Seetoo(1356046979@qq.com) or Clang(clangwu@163.com) to get an access.
+- KUKA(China) is allowed to use internally. Not available to other companies without permission.
+- If you are interseted in this project and need more information, please contact Mentos Seetoo(1356046979@qq.com) or Clang(clangwu@163.com) to get an access.  
 
 ## **How to run this program**?
 
