@@ -1,4 +1,4 @@
-project(core_test)
+project(kernel)
 
 # Source/Include files
 include_directories(".")
@@ -6,7 +6,7 @@ include_directories("controller/")
 include_directories("common/")
 file(GLOB SOURCE "*.cpp" "controller/*.cpp" )
 
-add_library(core_test STATIC ${SOURCE})
+add_library(kernel STATIC ${SOURCE})
 
 #Add common
 #target_link_libraries(${PROJECT_NAME} common)

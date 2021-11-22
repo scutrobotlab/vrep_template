@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(kr3)
+project(test)
 
 #Make sure no in-source build -----------------------------------------------------------------------------#
 if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
@@ -31,14 +31,14 @@ add_definitions(-DNON_MATLAB_PARSING
                 -DDO_NOT_USE_SHARED_MEMORY)
 
 #Add sub directories --------------------------------------------------------------------------------------#
-add_subdirectory(core_test)
+add_subdirectory(kernel)
 add_subdirectory(common)
 add_subdirectory(coppeliaSim-client)
 
 #Add libs and include_directories -------------------------------------------------------------------------#
 include_directories(".")
 include_directories("common")
-include_directories("core_test")
+include_directories("kernel")
 include_directories("coppeliaSim-client")
 include_directories("coppeliaSim-client/include")
 include_directories("coppeliaSim-client/include/stack")
@@ -47,7 +47,7 @@ include_directories("coppeliaSim-client/remoteApi")
 file(GLOB USER_SOURCE "*.cpp")
 add_executable(${PROJECT_NAME} ${USER_SOURCE})
 
-target_link_libraries(${PROJECT_NAME} core_test)
+target_link_libraries(${PROJECT_NAME} kernel)
 target_link_libraries(${PROJECT_NAME} common)
 target_link_libraries(${PROJECT_NAME} coppeliaSim_client)
 

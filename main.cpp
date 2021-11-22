@@ -1,7 +1,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "CoppeliaSim.h"
 #include "matplotlibcpp.h"
-#include "core_test/gimble.h"
+#include "kernel/gimble.h"
 /* Usr defines ---------------------------------------------------------------*/
 using namespace std; 
 namespace plt = matplotlibcpp;
