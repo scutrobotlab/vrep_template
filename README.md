@@ -25,7 +25,7 @@
 
 - **Joint Control in Simulation**
 
-  ​	In our real robot, we use PD controller for joint control. And We hope this lower layer controller would be well characterised in simulation. However, CoppeliSim Robotics does not provide a proper way to perform highband joint control, which control frequency can only achieves 100Hz.
+  ​	In our real robot, we use PD controller for joint control. And We hope this lower layer controller would be well characterised in simulation. However, CoppeliSim Robotics does not provide a proper way to perform highband joint control, which control frequency can only achieve 100Hz.
 
   ​	To use the template project, you just need to focus on 3 functions:
 
