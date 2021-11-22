@@ -18,7 +18,7 @@ uint32_t getSimTime();
 /**
 * @brief This is the initialization function for user.
 */
-void Usr_init()
+void Usr_Init()
 {
     gimble.init();
 }
@@ -56,11 +56,10 @@ void Usr_ReadFromSimulation()
     gimble.gimble_joint.tau_fb = Joint->obj_Data.torque_f;
     gimble.gimble_joint.pos_fb = Joint->obj_Data.angle_f;
     gimble.gimble_joint.vel_fb = Joint->obj_Data.angVelocity_f;
-    // std::cout << "gimble joint torque : " << gimble.gimble_joint.tau_fb<< endl;
+}
+// std::cout << "gimble joint torque : " << gimble.gimble_joint.tau_fb<< endl;
     // std::cout << "gimble joint position : " << gimble.gimble_joint.pos_fb<< endl;
     // std::cout << "gimble joint velocity : " << gimble.gimble_joint.vel_fb<< endl;
-}
-
 /**
 * @brief It's NOT recommended that user modefies this function.
 *        Plz programm the functions with the prefix "Usr_". 
@@ -86,7 +85,7 @@ int main(int argc, char *argv[])
     /*
         User init.
     */
-    Usr_init();
+    Usr_Init();
     while (1)
     {
         if (hClient->Is_Connected())

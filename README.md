@@ -3,7 +3,6 @@
 ## **Introduction**
 
 - Project to simulate Robot with C++ edited in Vscode. 
-- Please have a look at Gimbel::init()/Gimble::task() located in the gimble.cpp, you 'll have a macro understanding of using vrep for motor/joint control.
 - If you are interseted in this project and need more information, please contact Mentos Seetoo(1356046979@qq.com) or Clang(clangwu@163.com) to get an access.
 
 ## **How to run this program**?
@@ -20,18 +19,57 @@
 ## **Implementation details**
 
 
-### **2. Motion Controller**
-
-- **Balance controller based on kinematic model**
+### **Motion Controller**
 
 
 - **Joint Control in Simulation**
 
-  In our real robot, we use PD controller for joint control. And We hope this lower layer controller would be well characterised in simulation. However, CoppeliSim Robotics does not provide a proper way to perform highband PD control, so we have to run PD controller in coppeliasim custom client, which control frequency is lower than 200Hz.
+  ​	In our real robot, we use PD controller for joint control. And We hope this lower layer controller would be well characterised in simulation. However, CoppeliSim Robotics does not provide a proper way to perform highband joint control, which control frequency can only achieves 100Hz.
 
-  We still don't know whether this method works well. Module testing is needed but we havn't finished.
+  ​	To use the template project, you just need to focus on 3 functions:
 
-  PS: In our test, static torque error is vrey small and we can assume that there's no error between target and simulation output. 
+  ​															`void Usr_ConfigSimulation()；`
+
+  ​															`void Usr_SendFromSimulation()；`
+
+  ​															`void Usr_ReadFromSimulation()；`
+
+  1. Specify the joint:
+
+  ```c++
+  void Usr_ConfigSimulation()
+  {
+      Joint = CoppeliaSim->Add_Object("joint", JOINT, { SIM_VELOCITY | CLIENT_RW, SIM_POSITION | CLIENT_RO, SIM_FORCE | CLIENT_RW });
+  }
+  ```
+
+  2. Send the torque command to the joint:
+
+  ```C++
+  void Usr_SendToSimulation()
+  {
+      Joint->obj_Target.torque_f = gimble.gimble_joint.tau_d;
+  }
+  ```
+
+  3. To get the position, velocity and torque of joint:
+
+  ```c++
+  void Usr_ReadFromSimulation()
+  {
+      gimble.gimble_joint.tau_fb = Joint->obj_Data.torque_f;
+      gimble.gimble_joint.pos_fb = Joint->obj_Data.angle_f;
+      gimble.gimble_joint.vel_fb = Joint->obj_Data.angVelocity_f;
+  }
+  ```
+
+  ​	If you want to design our controller, you may have a look at the demo:
+
+  ​	`void Usr_Init()；`    and	`void Usr_Main()；`
+
+   
+
+  PS: In our test, both static and dynamic torque error are vrey small and we can assume that there's no error between target and simulation output. 
 
   Related URL：
 
