@@ -3,16 +3,27 @@
 #include <iomanip>
 #include <conio.h>
 #include <windows.h>
-typedef struct pid_param
+typedef struct PIDData
 {
-    /* data */
     float _p;
     float _i;
     float _d;
-    float i_limit;
-    float out_limit;
-}PIDParamTypedef;
 
+    float i_limit;//for integral limited
+    float out_limit;//for output limited
+
+    float i_band;//for integral separated
+
+    float curr_err;
+    float last_err;
+    float all_err;
+
+    float p_term;
+    float i_term;
+    float d_term;
+    float out;//pid output
+    
+}PIDDataTypedef;
 
 typedef struct JointData
 {

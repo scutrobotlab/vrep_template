@@ -3,7 +3,7 @@
 ## **Introduction**
 
 - Project to simulate Robot with C++ edited in Vscode. 
-- Please have a look at Gimble::task() located in the gimble.cpp, you 'll have a macro understanding of using vrep for motor/joint control.
+- Please have a look at Gimbel::init()/Gimble::task() located in the gimble.cpp, you 'll have a macro understanding of using vrep for motor/joint control.
 - If you are interseted in this project and need more information, please contact Mentos Seetoo(1356046979@qq.com) or Clang(clangwu@163.com) to get an access.
 
 ## **How to run this program**?

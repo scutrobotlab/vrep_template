@@ -58,29 +58,22 @@ float pid_ctrl::ctrl(PIDDataTypedef &_ctrl, float tar, float curr)
     return _ctrl.out;
 }
 
-void pid_ctrl::set_param(CtrlObjectEnumdef obj, PIDParamTypedef &pid_param)
+void pid_ctrl::set_param(CtrlObjectEnumdef obj, PIDDataTypedef &pid_param)
 {
-    PIDDataTypedef *ctrl;
     switch (obj)
     {
         case CtrlObjectEnumdef::pos_type:
-            ctrl = &pos_data;
+            pos_data = pid_param;
             break;
         case CtrlObjectEnumdef::vel_type:
-            ctrl = &vel_data;
+            vel_data = pid_param;
             break;
         case CtrlObjectEnumdef::tau_type:
-            ctrl = &tau_data;
+            tau_data = pid_param;
             break;
         default:
             break;
     }
-
-    ctrl->_p = pid_param._p;
-    ctrl->_i = pid_param._i;
-    ctrl->_d = pid_param._d;
-    ctrl->i_limit = pid_param.i_limit;
-    ctrl->out_limit = pid_param.out_limit;
 }
 
 void pid_ctrl::tau_loop_enable(bool yn)
@@ -98,4 +91,117 @@ void pid_ctrl::task()
 {
     _joint->tau_d = ctrl();
     //std::cout<<"V_err: "<<std::setprecision(2)<<vel_data.curr_err<<"   V_ALL:   "<<vel_data.all_err<<"  T_err: "<<std::setprecision(2)<<tau_data.curr_err<<"  T_ALL:   "<<tau_data.all_err<<std::endl;
+}
+
+void pid_ctrl::adjust()
+{
+    char key;
+        static float delta = 0.005;
+        static int type = 1;
+        if (_kbhit()) 
+        {  
+            key = _getch();  
+            std::cout << key <<std::endl;
+            switch (key)
+            {
+            case 'b':
+                    type = !type;
+                    if (type)
+                            std::cout <<"Position mode " <<std::endl;
+                    else
+                            std::cout <<"Velocity mode " <<std::endl;
+                    break;
+            case 'w':
+                    if (type)
+                    {
+                            pos_data._p += delta;
+                            std::cout <<" pos_p "<<pos_data._p <<std::endl;
+                    }else
+                    {
+                            vel_data._p += delta;
+                            std::cout <<" vel_p "<<vel_data._p <<std::endl;
+                    }
+                    break;
+            case 's':
+                    if (type)
+                    {
+                            pos_data._p -= delta;
+                            std::cout <<" pos_p "<<pos_data._p <<std::endl;
+                    }else
+                    {
+                            vel_data._p -= delta;
+                            std::cout <<" vel_p "<<vel_data._p <<std::endl;
+                    }
+                    break;
+            case 'a':
+                    if (type)
+                    {
+                            pos_data._i += delta;
+                            std::cout <<" pos_i "<<pos_data._i <<std::endl;
+                    }else
+                    {
+                            vel_data._i += delta;
+                            std::cout <<" vel_i "<<vel_data._i <<std::endl;
+                    }
+                    
+                    break;
+            case 'd':
+                    if (type)
+                    {
+                            pos_data._i -= delta;
+                            std::cout <<" pos_i "<<pos_data._i <<std::endl;
+                    }else
+                    {
+                            vel_data._i -= delta;
+                            std::cout <<" vel_i "<<vel_data._i <<std::endl;
+                    }
+                    break;
+            case 'q':
+                    if (type)
+                    {
+                            pos_data._d += delta;
+                            std::cout <<" pos_d "<<pos_data._d <<std::endl;
+                    }else
+                    {
+                            vel_data._d += delta;
+                            std::cout <<" vel_d "<<vel_data._d <<std::endl;
+                    }
+                    break;
+            case 'e':
+                    if (type)
+                    {
+                            pos_data._d -= delta;
+                            std::cout <<" pos_d "<<pos_data._d <<std::endl;
+                    }else
+                    {
+                            vel_data._d -= delta;
+                            std::cout <<" vel_d "<<vel_data._d <<std::endl;
+                    }
+                    break;      
+            case 'v':
+                    std::cout << "joint velocity : " << _joint->vel_fb<< std::endl;  
+                    break;      
+            case 'p':
+                    std::cout << "joint position : " << _joint->pos_fb<< std::endl;  
+                    break;   
+            case 'z':
+                    _joint->pos_d += 1;
+                    std::cout << "pos target : " << _joint->pos_d<< std::endl;  
+                    break;
+            case 'c':
+                    _joint->pos_d -= 1;
+                    std::cout << "pos target : " << _joint->pos_d<< std::endl;  
+                    break;
+            case 'n':
+                    delta += 0.005;
+                    std::cout << "delta: " << delta << std::endl;  
+                    break;
+            case 'm':
+                    delta -= 0.005;
+                    std::cout << "delta: " << delta << std::endl;  
+                    break;
+            default:
+                    break;
+            }
+    }
 }

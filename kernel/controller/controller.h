@@ -11,6 +11,7 @@ class Controller
         ~Controller();
         virtual void init() = 0;
         virtual void task() = 0;
+        virtual void adjust() = 0;
 };
 
 

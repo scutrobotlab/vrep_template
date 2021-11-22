@@ -2,7 +2,7 @@
   ******************************************************************************
   * Copyright (C) 2020 - ~, SCUT-RobotLab Development Team
   * @file    CoppelisSim.cpp
-  * @author  Sigma Chen hyper_chen@163.com
+  * @author  Sigma Chen hyper_chen@163.com / Clang Wu clangwu@163.com(Maintainer)
   * @brief   Simple package based on 'Legacy remote API' of CoppeliaSim Robotics.
   * 		 This file provide a class for user to easily communicate with 
   * 		 CoppeliaSim simulation server side. If you don't find a suitable 
