@@ -26,7 +26,7 @@ void Gimble::init()
                         pid.set_param(CtrlObjectEnumdef::tau_type, _tau);
                 
         /*--- LQR demo ---*/
-
+                
 }
 
 void Gimble::task()

@@ -11,7 +11,7 @@
 ### **1. Run with simulation**
 
 - **Start your Simulation:**
-  1. Open scence file `test.ttt` with CoppeliaSim.
+  1. Open scence file `./sim/test.ttt` with CoppeliaSim.
   2. Compile and run program `./build/bin/test.exe` on Windows, (`./build/bin/test` on Linux)
   3. Start simulation using the button in CoppeliaSim.
 
