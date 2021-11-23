@@ -64,7 +64,7 @@
   }
   ```
 
-  ​	If you want to design our controller, you may have a look at the demo:
+  ​	If you want to design your own controller, you may have a look at the demo:
 
   ​	`void Usr_Init()；`    and	`void Usr_Main()；`
 
