@@ -2,9 +2,12 @@
 #include "CoppeliaSim.h"
 #include "matplotlibcpp.h"
 #include "kernel/gimble.h"
+#include <Eigen/Dense>
 /* Usr defines ---------------------------------------------------------------*/
 using namespace std; 
+using namespace Eigen;
 namespace plt = matplotlibcpp;
+
 /*Object Handle -----------------------------------------------------------*/
 _simObjectHandle_Type* Body;
 _simObjectHandle_Type* Joint;
@@ -19,7 +22,7 @@ uint32_t getSimTime();
 * @brief This is the initialization function for user.
 */
 void Usr_Init()
-{
+{ 
     gimble.init();
 }
 
@@ -72,7 +75,7 @@ int main(int argc, char *argv[])
     */
     std::cout << "[System Logger] Configuring... \n";
     std::cout << "[System Logger] Logger is ready ! \n";
-
+    
     /*
         Simulation connection init.
     */
