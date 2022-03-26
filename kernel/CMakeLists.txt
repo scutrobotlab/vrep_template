@@ -8,9 +8,7 @@ file(GLOB SOURCE "*.cpp" "controller/*.cpp" )
 
 add_library(kernel STATIC ${SOURCE})
 
-#Add common
-#target_link_libraries(${PROJECT_NAME} common)
-#include_directories("../common")
+
 
 
 

@@ -1,12 +1,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "CoppeliaSim.h"
-#include "matplotlibcpp.h"
 #include "kernel/gimble.h"
-#include <Eigen/Dense>
 /* Usr defines ---------------------------------------------------------------*/
 using namespace std; 
-using namespace Eigen;
-namespace plt = matplotlibcpp;
 
 /*Object Handle -----------------------------------------------------------*/
 _simObjectHandle_Type* Body;

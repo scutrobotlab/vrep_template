@@ -11,7 +11,6 @@ endif ()
 set( CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 set( CMAKE_CXX_STANDARD 14)
 set( CMAKE_C_STANDARD 11)
-set( CMAKE_CXX_FLAGS "-pthread")
 set( EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/bin) 
 set( LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/lib) 
 
@@ -32,25 +31,19 @@ add_definitions(-DNON_MATLAB_PARSING
 
 #Add sub directories --------------------------------------------------------------------------------------#
 add_subdirectory(kernel)
-add_subdirectory(common)
 add_subdirectory(coppeliaSim-client)
 
-#Add eigen3
-find_package(Eigen3 REQUIRED)
 #Add libs and include_directories -------------------------------------------------------------------------#
 include_directories(".")
-include_directories("common")
 include_directories("kernel")
 include_directories("coppeliaSim-client")
 include_directories("coppeliaSim-client/include")
 include_directories("coppeliaSim-client/include/stack")
 include_directories("coppeliaSim-client/remoteApi")
-include_directories(${EIGEN3_INCLUDE_DIRS})
 
 file(GLOB USER_SOURCE "*.cpp")
 add_executable(${PROJECT_NAME} ${USER_SOURCE})
 
 target_link_libraries(${PROJECT_NAME} kernel)
-target_link_libraries(${PROJECT_NAME} common)
 target_link_libraries(${PROJECT_NAME} coppeliaSim_client)
 
