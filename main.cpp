@@ -1,12 +1,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "CoppeliaSim.h"
-#include "matplotlibcpp.h"
-#include "sys_log.h"
 #include "core_test/car.h"
 
 /* Usr defines ---------------------------------------------------------------*/
 using namespace std; 
-namespace plt = matplotlibcpp;
 /*Object Handle -----------------------------------------------------------*/
 _simObjectHandle_Type* Body;
 _simObjectHandle_Type* Joint[5];
@@ -15,7 +12,6 @@ _simSignalHandle_Type* EulerAngle[3];
 
 /*Usr Parameters ----------------------------------------------------------*/
 mycar car;
-LogFilter_t Filters[3];
 /* Founctions ----------------------------------------------------------------*/
 uint32_t getSimTime();
 
@@ -97,7 +93,6 @@ int main(int argc, char *argv[])
         System Logger tool init.
     */
     std::cout << "[System Logger] Configuring... \n";
-    SysLog->getMilliTick_regist(getSimTime);
     std::cout << "[System Logger] Logger is ready ! \n";
 
     /*

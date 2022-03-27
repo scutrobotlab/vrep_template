@@ -11,7 +11,6 @@ endif ()
 set( CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 set( CMAKE_CXX_STANDARD 14)
 set( CMAKE_C_STANDARD 11)
-set( CMAKE_CXX_FLAGS "-pthread")
 set( EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/bin) 
 set( LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/lib) 
 
@@ -32,12 +31,10 @@ add_definitions(-DNON_MATLAB_PARSING
 
 #Add sub directories --------------------------------------------------------------------------------------#
 add_subdirectory(core_test)
-add_subdirectory(common)
 add_subdirectory(coppeliaSim-client)
 
 #Add libs and include_directories -------------------------------------------------------------------------#
 include_directories(".")
-include_directories("common")
 include_directories("core_test")
 include_directories("coppeliaSim-client")
 include_directories("coppeliaSim-client/include")
@@ -48,6 +45,5 @@ file(GLOB USER_SOURCE "*.cpp")
 add_executable(${PROJECT_NAME} ${USER_SOURCE})
 
 target_link_libraries(${PROJECT_NAME} core_test)
-target_link_libraries(${PROJECT_NAME} common)
 target_link_libraries(${PROJECT_NAME} coppeliaSim_client)
 
